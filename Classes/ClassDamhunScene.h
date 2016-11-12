@@ -29,7 +29,7 @@ public:
 
 
 		// 배경 이미지 출력
-		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map4a.png");
+		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map5a.png");
 		pBackgroundSprite->setPosition(cocos2d::CCPointZero);
 		pBackgroundSprite->setAnchorPoint(ccp((float)0, (float)0));
 		pBackgroundSprite->setPosition(ccp((float)0, (float)0));

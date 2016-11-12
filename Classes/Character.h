@@ -35,17 +35,31 @@ public:
 	void	setMyCharacter(int value)	{ m_myCharacter = value; }
 	int		getStress()					{ return m_stress; }
 	void	setStress(int value)		{ m_stress = value; }
-	void	addStress(int value)		{ m_stress += value; }
+	void	addStress(int value)		{ 
+		m_stress += value;
+		if(m_stress < 0) m_stress = 0;
+	}
 	int		getMaxStress()				{ return m_maxStress; }
 	void	setMaxStress(int value)		{ m_maxStress = value; }
 	int		getTiredness()				{ return m_tiredness; }
 	void	setTiredness(int value)		{ m_tiredness = value; }
-	void	addTiredness(int value)		{ m_tiredness += value; }
+	void	addTiredness(int value)		{ 
+		m_tiredness += value;
+		if(m_tiredness < 0) m_tiredness = 0;
+	}
 	int		getMaxTiredness()			{ return m_maxTiredness; }
 	void	setMaxTiredness(int value)	{ m_maxTiredness = value; }
 	int		getMoney()					{ return m_money; }
 	void	setMoney(int value)			{ m_money = value; }
-	void	addMoney(int value)			{ m_money += value; }
+	bool	addMoney(int value)			{ 
+		if(m_money < m_money + value) {
+			return false;
+		}
+		else {
+			m_money += value;
+			return true;
+		}
+	}
 
 
 	int		getTime()					{ return m_time; }

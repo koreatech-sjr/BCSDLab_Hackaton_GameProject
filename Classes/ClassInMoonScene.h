@@ -123,7 +123,6 @@ public:
 		if (progress == 2) {
 			if (cnt % 5 == 0) {
 				int random = rand() % 10;
-				pCharacter->addMoney(-2200);
 				if(random < 2) {
 					if(typeText("수업이  이해가  잘  된다.\n")) {
 						progress = 5;
@@ -151,7 +150,6 @@ public:
 		if (progress == 3) {
 			if (cnt % 5 == 0) {
 				int random = rand() % 10;
-				pCharacter->addMoney(-3000);
 				if(random < 2) {
 					if(typeText("교수님이  전혀  신경을  쓰지 않는다.\n")) {
 						progress = 5;
@@ -177,7 +175,6 @@ public:
 		}
 		if (progress == 4) {
 			int random = rand() % 10;
-			pCharacter->addMoney(-3000);
 			if(random < 8) {
 				pCharacter->addStress(-5);
 				if(typeText("성공적으로  도망갔다.\n")) {

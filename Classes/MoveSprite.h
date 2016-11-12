@@ -160,7 +160,7 @@ protected:
 		m_textLabel->setColor(Color3B(0, 0, 0));
 		addChild(m_textLabel, 4);
 
-		str = "동아리방";
+		str = "정문";
 		m_textLabel = LabelTTF::create(str, "Arial", 55,
 			Size(400, 100), TextHAlignment::LEFT, TextVAlignment::CENTER);
 		m_textLabel->setAnchorPoint(ccp((float)0.0f, (float)0.0f));
@@ -168,7 +168,7 @@ protected:
 		m_textLabel->setColor(Color3B(0, 0, 0));
 		addChild(m_textLabel, 4);
 
-		str = "정문 술집";
+		str = "운동장";
 		m_textLabel = LabelTTF::create(str, "Arial", 55,
 			Size(400, 100), TextHAlignment::LEFT, TextVAlignment::CENTER);
 		m_textLabel->setAnchorPoint(ccp((float)0.0f, (float)0.0f));

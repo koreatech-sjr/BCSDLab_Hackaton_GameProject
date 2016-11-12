@@ -260,7 +260,7 @@ public:
 		}
 
 		
-		// 생활관 입장 버튼
+		// 1a 생활관 입장 버튼 x
 		if(isButton11(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 1) {
@@ -271,7 +271,7 @@ public:
 			mode = NORMAL;
 		}
 		
-		// 학식 입장 버튼
+		// 2a 학식 입장 버튼
 		if(isButton21(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 2) {
@@ -281,8 +281,8 @@ public:
 			}
 			mode = ENTER;
 		}
-		/*
-		// 동방 입장 버튼
+		
+		// 2b 동방 입장 버튼 x
 		if(isButton22(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 2) {
@@ -292,8 +292,7 @@ public:
 			}
 			mode = NORMAL;
 		}
-		*/
-		// 4공 강의실 입장 버튼
+		// 3a 4공 강의실 입장 버튼
 		if(isButton31(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 3) {
@@ -303,7 +302,7 @@ public:
 			}
 			mode = NORMAL;
 		}
-		// 인경 강의실 입장 버튼
+		// 4a 인경 강의실 입장 버튼
 		if(isButton41(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 4) {
@@ -314,7 +313,7 @@ public:
 			mode = NORMAL;
 		}
 		
-		// 담헌 강의실 입장 버튼
+		// 5a 담헌 강의실 입장 버튼
 		if(isButton51(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 5) {
@@ -324,8 +323,7 @@ public:
 			}
 			mode = NORMAL;
 		}
-		/*
-		// 신한은행 입장 버튼
+		// 6a 신한은행 입장 버튼 x
 		if(isButton61(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 6) {
@@ -335,7 +333,7 @@ public:
 			}
 			mode = NORMAL;
 		}
-		// 우체국 입장 버튼
+		// 6b 우체국 입장 버튼 x
 		if(isButton62(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 6) {
@@ -345,7 +343,47 @@ public:
 			}
 			mode = NORMAL;
 		}
-		*/
+		// 7a 운동장 입장 버튼 x
+		if(isButton71(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 7) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 7b 헬스장 입장 버튼 x
+		if(isButton72(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 7) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 술집 입장 버튼 x
+		if(isButton81(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 8) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// PC방 입장 버튼 x
+		if(isButton82(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 8) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+
 		
 
 
@@ -398,12 +436,16 @@ public:
 			location = 7;
 			moveMap("map7.png");
 			removeButton();
+			setButton4(350, 400, "술집");
+			setButton5(700, 400, "PC방");
 			mode = NORMAL;
 		}
 		if(isMoveButton8(point) && mode == MOVE) {
 			location = 8;
 			moveMap("map8.png");
 			removeButton();
+			setButton4(850, 400, "운동장");
+			setButton5(1600, 600, "헬스장");
 			mode = NORMAL;
 		}
 
@@ -523,6 +565,34 @@ protected:
 	bool isButton62(Point point) {
 		int xx = 700;
 		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton71(Point point) {
+		int xx = 350;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton72(Point point) {
+		int xx = 700;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton81(Point point) {
+		int xx = 850;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton82(Point point) {
+		int xx = 1600;
+		int yy = 600;
 		if (point.x < xx || point.x > xx+150) return false;
 		if (point.y < yy || point.y > yy+150) return false;
 		return true;

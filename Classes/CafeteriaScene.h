@@ -106,7 +106,10 @@ public:
 		if (progress == 2) {
 			if (cnt % 5 == 0) {
 				int random = rand() % 10;
-				pCharacter->addMoney(-2200);
+				if(!pCharacter->addMoney(-3000)) {
+					if(typeText("잔액이 부족합니다ㅋ\n")) {
+						progress = 5;
+				}
 				if(random < 2) {
 					if(typeText("맛있게  먹었다.\n")) {
 						progress = 5;
@@ -133,7 +136,10 @@ public:
 		if (progress == 3) {
 			if (cnt % 5 == 0) {
 				int random = rand() % 10;
-				pCharacter->addMoney(-3000);
+				if(!pCharacter->addMoney(-3000)) {
+					if(typeText("잔액이 부족합니다ㅋ\n")) {
+						progress = 5;
+				}
 				if(random < 2) {
 					pCharacter->addStress(-18);
 					if(typeText("맛있게  먹었다.\n")) {
@@ -156,7 +162,10 @@ public:
 		}
 		if (progress == 4) {
 			int random = rand() % 10;
-				pCharacter->addMoney(-3000);
+				if(!pCharacter->addMoney(-3000)) {
+					if(typeText("잔액이 부족합니다ㅋ\n")) {
+						progress = 5;
+				}
 				if(random < 2) {
 					pCharacter->addStress(-24);
 					if(typeText("맛있게  먹었다.\n")) {
