@@ -256,22 +256,87 @@ public:
 			mode = NORMAL;
 		}
 
-		// 추가 버튼
-		if(isButton4(point) && mode!=ENTER) {
+		// 생활관 입장 버튼
+		if(isButton11(point) && mode!=MOVE) {
 			removeAllPopUp();
-
+			if(location == 1) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 학식 입장 버튼
+		if(isButton21(point) && mode!=MOVE) {
+			removeAllPopUp();
 			if(location == 2) {
 				auto scene = CafeteriaScene::createScene();
 				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
 				releaseClock();
 			}
-
-			mode = ENTER;
-		}
-		else if(isButton4(point) && mode == ENTER) {
-			removeAllPopUp();
 			mode = NORMAL;
 		}
+		// 동방 입장 버튼
+		if(isButton22(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 2) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 4공 강의실 입장 버튼
+		if(isButton31(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 3) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 인경 강의실 입장 버튼
+		if(isButton41(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 4) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 담헌 강의실 입장 버튼
+		if(isButton51(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 5) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 신한은행 입장 버튼
+		if(isButton61(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 6) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+		// 우체국 입장 버튼
+		if(isButton62(point) && mode!=MOVE) {
+			removeAllPopUp();
+			if(location == 6) {
+				auto scene = CafeteriaScene::createScene();
+				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
+				releaseClock();
+			}
+			mode = NORMAL;
+		}
+
 		
 
 
@@ -279,12 +344,14 @@ public:
 		if(isMoveButton1(point) && mode == MOVE) {
 			location = 1;
 			moveMap("map1.png");
+			removeButton();
 			setButton4(550, 600, "생활관");
 			mode = NORMAL;
 		}
 		if(isMoveButton2(point) && mode == MOVE) {
 			location = 2;
 			moveMap("map2.png");
+			removeButton();
 			setButton4(1200, 500, "동아리방");
 			setButton5(600, 400, "학생식당");
 			mode = NORMAL;
@@ -292,23 +359,28 @@ public:
 		if(isMoveButton3(point) && mode == MOVE) {
 			location = 3;
 			moveMap("map3.png");
+			setButton4(600, 400, "강의실");
+			removeButton();
 			mode = NORMAL;
 		}
 		if(isMoveButton4(point) && mode == MOVE) {
 			location = 4;
 			moveMap("map4.png");
+			removeButton();
 			setButton4(600, 600, "강의실");
 			mode = NORMAL;
 		}
 		if(isMoveButton5(point) && mode == MOVE) {
 			location = 5;
 			moveMap("map5.png");
+			removeButton();
 			setButton4(350, 600, "강의실");
 			mode = NORMAL;
 		}
 		if(isMoveButton6(point) && mode == MOVE) {
 			location = 6;
 			moveMap("map6.png");
+			removeButton();
 			setButton4(350, 400, "신한은행");
 			setButton5(700, 400, "우체국");
 			mode = NORMAL;
@@ -316,11 +388,13 @@ public:
 		if(isMoveButton7(point) && mode == MOVE) {
 			location = 7;
 			moveMap("map7.png");
+			removeButton();
 			mode = NORMAL;
 		}
 		if(isMoveButton8(point) && mode == MOVE) {
 			location = 8;
 			moveMap("map8.png");
+			removeButton();
 			mode = NORMAL;
 		}
 
@@ -370,10 +444,6 @@ protected:
 		removeChild(pPopUp);
 		// 이동하기 제거
 		removeChild(pMoveSprite);
-		// 추가 버튼 제거
-		removeButton();
-
-
 
 		mode = NORMAL;
 	}
@@ -400,8 +470,8 @@ protected:
 		return true;
 	}
 	bool isButton21(Point point) {
-		int xx = 1200;
-		int yy = 500;
+		int xx = 600;
+		int yy = 400;
 		if (point.x < xx || point.x > xx+150) return false;
 		if (point.y < yy || point.y > yy+150) return false;
 		return true;
@@ -414,8 +484,8 @@ protected:
 		return true;
 	}
 	bool isButton31(Point point) {
-		int xx = 600;
-		int yy = 400;
+		int xx = 1200;
+		int yy = 500;
 		if (point.x < xx || point.x > xx+150) return false;
 		if (point.y < yy || point.y > yy+150) return false;
 		return true;
