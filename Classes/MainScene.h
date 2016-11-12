@@ -129,16 +129,16 @@ public:
 
 
 	void update(float dt) {
-		static int cnt = 0;
-		cnt++;
+		//static int cnt = 0;
+		//cnt++;
 
 		releaseClock();
 
-		if (cnt == 1) {
+		//if (cnt == 1) {
 			//auto scene = StartScene::createScene();
 			//Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene, Color3B(255, 255, 255)));
 			
-		}
+		//}
 	}
 
 protected:
@@ -256,6 +256,7 @@ public:
 			mode = NORMAL;
 		}
 
+		
 		// 생활관 입장 버튼
 		if(isButton11(point) && mode!=MOVE) {
 			removeAllPopUp();
@@ -266,6 +267,7 @@ public:
 			}
 			mode = NORMAL;
 		}
+		
 		// 학식 입장 버튼
 		if(isButton21(point) && mode!=MOVE) {
 			removeAllPopUp();
@@ -274,8 +276,9 @@ public:
 				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
 				releaseClock();
 			}
-			mode = NORMAL;
+			mode = ENTER;
 		}
+		/*
 		// 동방 입장 버튼
 		if(isButton22(point) && mode!=MOVE) {
 			removeAllPopUp();
@@ -336,7 +339,7 @@ public:
 			}
 			mode = NORMAL;
 		}
-
+		*/
 		
 
 
@@ -431,11 +434,11 @@ protected:
 	void releaseClock() {
 		removeChild(pClock);
 		pClock = CClock::Create();
-			pClock->setPosition(cocos2d::CCPointZero);
-			pClock->setAnchorPoint(ccp((float)0, (float)0));
-			pClock->setPosition(ccp((float)DESIGN_WIDTH-350, (float)DESIGN_HEIGHT-250));
-			pClock->setClock();
-			addChild(pClock, 2);
+		pClock->setPosition(cocos2d::CCPointZero);
+		pClock->setAnchorPoint(ccp((float)0, (float)0));
+		pClock->setPosition(ccp((float)DESIGN_WIDTH-350, (float)DESIGN_HEIGHT-250));
+		pClock->setClock();
+		addChild(pClock, 2);
 	}
 	void removeAllPopUp() {
 		// 상태창 제거

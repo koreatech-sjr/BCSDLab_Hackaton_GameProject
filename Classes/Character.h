@@ -51,7 +51,7 @@ public:
 	void	setTime(int value)			{ m_time = value; }
 	int		getHour()					{ return m_hour; }
 	void	addHour(int value)			{
-		m_hour = value; 
+		m_hour += value; 
 		if(m_hour >= 24) {
 			m_hour = 0;
 			addDay();
@@ -69,7 +69,11 @@ public:
 		while(m_hour != value) m_hour += 1;
 	}
 	void	goTime(int value) {
-		while(m_time != value) m_time += 10;
+		if(m_time < 50) m_time = 50;
+		else {
+			m_hour += 1;
+			m_time = 10;
+		}
 	}
 	int		getYear()					{ return m_year; }
 	int		getMonth()					{ return m_month; }

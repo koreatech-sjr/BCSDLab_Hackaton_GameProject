@@ -29,7 +29,7 @@ public:
 
 
 		// 배경 이미지 출력
-		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map2in.png");
+		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map2a.png");
 		pBackgroundSprite->setPosition(cocos2d::CCPointZero);
 		pBackgroundSprite->setAnchorPoint(ccp((float)0, (float)0));
 		pBackgroundSprite->setPosition(ccp((float)0, (float)0));
@@ -89,7 +89,6 @@ public:
 						typeText("학식에  도착했다.\n메뉴를  선택하세요.");
 					else {
 						typeText("학식이  열려있지  않다.");
-						Director::getInstance()->popScene();
 					}
 			}
 		}
@@ -232,7 +231,11 @@ public:
 		if (typeEnd && progress == 0) {
 			typeEnd = false;
 			skip = false;
-			progress = 1; 
+			int t = pCharacter->getHour();
+			if(t== 8 || t == 13 || t == 18)
+				progress = 1; 
+			else
+				Director::getInstance()->popScene();
 			return;
 		}
 
