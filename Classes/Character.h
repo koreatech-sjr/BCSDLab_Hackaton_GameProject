@@ -72,7 +72,7 @@ public:
 		if(m_time < 50) m_time = 50;
 		else {
 			m_hour += 1;
-			m_time = 10;
+			m_time = 50;
 		}
 	}
 	int		getYear()					{ return m_year; }

@@ -9,6 +9,7 @@
 #include "DataSingleton.h"
 #include "CafeteriaScene.h"
 #include "ClassTech4Scene.h"
+#include "ClassInMoonScene.h"
 
 #define	NORMAL		0
 #define STATE		1
@@ -301,17 +302,17 @@ public:
 			}
 			mode = NORMAL;
 		}
-		/*
 		// 인경 강의실 입장 버튼
 		if(isButton41(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 4) {
-				auto scene = CafeteriaScene::createScene();
+				auto scene = ClassInMoonScene::createScene();
 				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
 				releaseClock();
 			}
 			mode = NORMAL;
 		}
+		/*
 		// 담헌 강의실 입장 버튼
 		if(isButton51(point) && mode!=MOVE) {
 			removeAllPopUp();
@@ -498,7 +499,7 @@ protected:
 	}
 	bool isButton41(Point point) {
 		int xx = 600;
-		int yy = 400;
+		int yy = 600;
 		if (point.x < xx || point.x > xx+150) return false;
 		if (point.y < yy || point.y > yy+150) return false;
 		return true;

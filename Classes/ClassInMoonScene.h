@@ -1,19 +1,19 @@
-#ifndef CLASS_TECH4_SCENE
-#define CLASS_TECH4_SCENE
+#ifndef CLASS_INMOON_SCENE
+#define CLASS_INMOON_SCENE
 
 #include "Common.h"
 #include "DialogueSprite.h"
 #include "Character.h"
 #include "DataSingleton.h"
 
-class ClassTech4Scene : public cocos2d::Layer
+class ClassInMoonScene : public cocos2d::Layer
 {
 	// [ 기본 ]
 	// ==============================================================================================================
 public:
 	static cocos2d::Scene* createScene() {
 		auto scene = Scene::create();
-		auto layer = ClassTech4Scene::create();
+		auto layer = ClassInMoonScene::create();
 		scene->addChild(layer);
 
 		return scene;
@@ -29,7 +29,7 @@ public:
 
 
 		// 배경 이미지 출력
-		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map3a.png");
+		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map4a.png");
 		pBackgroundSprite->setPosition(cocos2d::CCPointZero);
 		pBackgroundSprite->setAnchorPoint(ccp((float)0, (float)0));
 		pBackgroundSprite->setPosition(ccp((float)0, (float)0));
@@ -37,9 +37,9 @@ public:
 
 		// 터치 초기화
 		EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
-		listener->onTouchesBegan = CC_CALLBACK_2(ClassTech4Scene::onTouchesBegan, this);
-		listener->onTouchesMoved = CC_CALLBACK_2(ClassTech4Scene::onTouchesMoved, this);
-		listener->onTouchesEnded = CC_CALLBACK_2(ClassTech4Scene::onTouchesEnded, this);
+		listener->onTouchesBegan = CC_CALLBACK_2(ClassInMoonScene::onTouchesBegan, this);
+		listener->onTouchesMoved = CC_CALLBACK_2(ClassInMoonScene::onTouchesMoved, this);
+		listener->onTouchesEnded = CC_CALLBACK_2(ClassInMoonScene::onTouchesEnded, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 		m_bTouchStarted = false;
 		m_bTouchMoved = false;
@@ -76,40 +76,36 @@ public:
 
 		return true;
 	}
-	CREATE_FUNC(ClassTech4Scene);
+	CREATE_FUNC(ClassInMoonScene);
 
 	void update(float dt) {
 		static int cnt = 0;
 		cnt++;
-		
+
 		if (progress == 0) {
 			if (cnt % 5 == 0) {
 				int t = pCharacter->getHour();
 				int m = pCharacter->getTime();
 				int w = pCharacter->getDay()%7;
-				if( 
-					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 6 ||
-					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 1 ||
-					((t ==10 && m>=50) || (t == 11 && m==0)) && w == 0 ||
-					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 2) {
+				if(((t == 15 && m>=50) || (t ==  16 && m==0)) && w == 6) {
 					typeText("제시간에  수업시간에  도착했다.");
 					mode = 1;
 				}
-				else if( 
-					((t ==  9 && m >= 10) && w == 6) ||
-					((t ==  9 && m >= 10) && w == 1) ||
-					((t == 11 && m >= 10) && w == 0) ||
-					((t ==  9 && m >= 10) && w == 2)) {
-						typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
-						mode = 2;
+				else if(((t == 10 && m>=50) || (t ==  11 && m==0)) && w == 2) {
+					typeText("제시간에  수업시간에  도착했다.");
+					mode = 2;
 				}
-				else if (
-					((t ==  9 && m>50) && w == 6) || 
-					((t ==  9 && m>50) && w == 1) ||
-					((t == 11 && m>50) && w == 0) ||
-					((t ==  9 && m>50) && w == 2)) {
-						typeText("너무  늦게  도착하였다.\n결석처리가  되었다.");
-						mode = 3;
+				else if(((t ==  16 && m >= 10) && w == 6)) {
+					typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
+					mode = 3;
+				}
+				else if(((t ==  11 && m >= 10) && w == 2)) {
+					typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
+					mode = 4;
+				}
+				else if ((t == 11 && m>50) && w == 2) {
+					typeText("너무  늦게  도착하였다.\n결석처리가  되었다.");
+						mode = 5;
 				}
 				else {
 					typeText("지금은  수업시간이  아니다.");
@@ -175,21 +171,21 @@ public:
 		}
 		if (progress == 4) {
 			int random = rand() % 10;
-				pCharacter->addMoney(-3000);
-				if(random < 8) {
-					pCharacter->addStress(-24);
-					if(typeText("성공적으로  도망갔다.\n")) {
-						progress = 5;
-					}
-					
+			pCharacter->addMoney(-3000);
+			if(random < 8) {
+				pCharacter->addStress(-24);
+				if(typeText("성공적으로  도망갔다.\n")) {
+					progress = 5;
 				}
-				else {
-					pCharacter->addStress(-20);
-					if(typeText("교수님께서  출석을  다시  부르셨다고  한다.\n결석처리가  되었다.")) {
-						progress = 5;
-					}
+
+			}
+			else {
+				pCharacter->addStress(-20);
+				if(typeText("교수님께서  출석을  다시  부르셨다고  한다.\n결석처리가  되었다.")) {
+					progress = 5;
 				}
-	
+			}
+
 		}
 	}
 
@@ -253,16 +249,29 @@ public:
 			if(mode == 1) {
 				progress = 1;
 				pCharacter->goTime(50);
-				pCharacter->goTime(50);
 			}
 			else if(mode == 2) {
 				progress = 1;
 				pCharacter->goTime(50);
-			} else {
+				pCharacter->goTime(50);
+			} 
+			else if(mode == 3) {
+				progress = 1;
+				pCharacter->goTime(50);
+			} else if(mode == 4) {
+				progress = 1;
+				pCharacter->goTime(50);
+				pCharacter->goTime(50);
+			} 
+			else if(mode == 5) {
+				progress = 1;
+				pCharacter->goTime(50);
+				pCharacter->goTime(50);
+			}else {
 				Director::getInstance()->popScene();
 			}
 			//else
-				//Director::getInstance()->popScene();
+			//Director::getInstance()->popScene();
 			return;
 		}
 
@@ -280,8 +289,13 @@ public:
 		if (isInButton3(point) && progress == 1) {
 			skip = false;
 			progress = 4;
-			pCharacter->setTime(10);
-			pCharacter->addHour(-1);
+			if( mode == 1 || mode == 3) {
+				pCharacter->setTime(10);
+			}
+			if( mode == 2 || mode == 4 || mode == 5) {
+				pCharacter->setTime(10);
+				pCharacter->addHour(-1);
+			}
 			return;
 		}
 		// end of 선택지 ---------------
@@ -342,4 +356,4 @@ protected:
 
 
 };
-#endif CLASS_TECH4_SCENE
+#endif CLASS_INMOON_SCENE
