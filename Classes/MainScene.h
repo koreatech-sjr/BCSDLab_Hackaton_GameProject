@@ -309,8 +309,8 @@ public:
 		if(isMoveButton6(point) && mode == MOVE) {
 			location = 6;
 			moveMap("map6.png");
-			setButton4(350, 600, "신한은행");
-			setButton5(700, 600, "우체국");
+			setButton4(350, 400, "신한은행");
+			setButton5(700, 400, "우체국");
 			mode = NORMAL;
 		}
 		if(isMoveButton7(point) && mode == MOVE) {
@@ -392,11 +392,64 @@ protected:
 		if (point.y < 150 || point.y > 300) return false;
 		return true;
 	}
-	bool isButton4(Point point) {
-		if (point.x < 885 || point.x > 1035) return false;
-		if (point.y < 465 || point.y > 615) return false;
+	bool isButton11(Point point) {
+		int xx = 550;
+		int yy = 600;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
 		return true;
 	}
+	bool isButton21(Point point) {
+		int xx = 1200;
+		int yy = 500;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton22(Point point) {
+		int xx = 600;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton31(Point point) {
+		int xx = 600;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton41(Point point) {
+		int xx = 600;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton51(Point point) {
+		int xx = 350;
+		int yy = 600;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton61(Point point) {
+		int xx = 350;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+	bool isButton62(Point point) {
+		int xx = 700;
+		int yy = 400;
+		if (point.x < xx || point.x > xx+150) return false;
+		if (point.y < yy || point.y > yy+150) return false;
+		return true;
+	}
+
+	// -----------------------
 	bool isMoveButton7(Point point) {
 		if (point.x < 300 || point.x > 750) return false;
 		if (point.y < 120 || point.y > 220) return false;
