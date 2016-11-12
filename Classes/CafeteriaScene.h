@@ -81,18 +81,19 @@ public:
 	void update(float dt) {
 		static int cnt = 0;
 		cnt++;
-		
+
 		if (progress == 0) {
 			if (cnt % 5 == 0) {
-					int t= pCharacter->getHour();
-					if(t== 8 || t == 13 || t == 18) {
-						typeText("학식에  도착했다.\n메뉴를  선택하세요.");
-						mode = 0;
-					}
-					else {
-						typeText("학식이  열려있지  않다.");
-						mode = 1;
-					}
+				int t = pCharacter->getHour();
+				int m = pCharacter->getTime(); 
+				if((t==8 && m<50) || (t == 13 && m<50) || (t == 18 && m<50)) {
+					typeText("학식에  도착했다.\n메뉴를  선택하세요.");
+					mode = 0;
+				}
+				else {
+					typeText("학식이  열려있지  않다.");
+					mode = 1;
+				}
 			}
 		}
 		if (progress == 1) {
@@ -109,6 +110,7 @@ public:
 				if(!pCharacter->addMoney(-3000)) {
 					if(typeText("잔액이 부족합니다ㅋ\n")) {
 						progress = 5;
+					}
 				}
 				if(random < 2) {
 					if(typeText("맛있게  먹었다.\n")) {
@@ -129,9 +131,8 @@ public:
 					pCharacter->addStress(-6);
 				}
 			}
-
-
 		}
+
 
 		if (progress == 3) {
 			if (cnt % 5 == 0) {
@@ -139,6 +140,7 @@ public:
 				if(!pCharacter->addMoney(-3000)) {
 					if(typeText("잔액이 부족합니다ㅋ\n")) {
 						progress = 5;
+					}
 				}
 				if(random < 2) {
 					pCharacter->addStress(-18);
@@ -160,31 +162,33 @@ public:
 				}
 			}
 		}
+
 		if (progress == 4) {
 			int random = rand() % 10;
-				if(!pCharacter->addMoney(-3000)) {
-					if(typeText("잔액이 부족합니다ㅋ\n")) {
-						progress = 5;
+			if(!pCharacter->addMoney(-3000)) {
+				if(typeText("잔액이 부족합니다ㅋ\n")) {
+					progress = 5;
 				}
-				if(random < 2) {
-					pCharacter->addStress(-24);
-					if(typeText("맛있게  먹었다.\n")) {
-						progress = 5;
-					}
-					
+			}
+			if(random < 2) {
+				pCharacter->addStress(-24);
+				if(typeText("맛있게  먹었다.\n")) {
+					progress = 5;
 				}
-				else if(random < 8) {
-					pCharacter->addStress(-20);
-					if(typeText("배가  부르다.\n")) {
-						progress = 5;
-					}
+
+			}
+			else if(random < 8) {
+				pCharacter->addStress(-20);
+				if(typeText("배가  부르다.\n")) {
+					progress = 5;
 				}
-				else {
-					pCharacter->addStress(-12);
-					if(typeText("맛이  없었다.\n")) {
-						progress = 5;
-					}
+			}
+			else {
+				pCharacter->addStress(-12);
+				if(typeText("맛이  없었다.\n")) {
+					progress = 5;
 				}
+			}
 		}
 	}
 
