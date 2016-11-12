@@ -104,10 +104,10 @@ public:
 						mode = 2;
 				}
 				else if (
-					((t ==  9 && m>50) && w == 6) || 
-					((t ==  9 && m>50) && w == 1) ||
-					((t == 11 && m>50) && w == 0) ||
-					((t ==  9 && m>50) && w == 2)) {
+					((t ==  10 && m>0) && w == 6) || 
+					((t ==  10 && m>0) && w == 1) ||
+					((t == 12 && m>0) && w == 0) ||
+					((t ==  10 && m>0) && w == 2)) {
 						typeText("너무  늦게  도착하였다.\n결석처리가  되었다.");
 						mode = 3;
 				}
@@ -250,19 +250,17 @@ public:
 			typeEnd = false;
 			skip = false;
 			int t = pCharacter->getHour();
-			if(mode == 1) {
+			if(mode == 1 || mode == 2) {
 				progress = 1;
 				pCharacter->goTime(50);
 				pCharacter->goTime(50);
 			}
-			else if(mode == 2) {
+			else if(mode == 3) {
 				progress = 1;
 				pCharacter->goTime(50);
 			} else {
 				Director::getInstance()->popScene();
 			}
-			//else
-				//Director::getInstance()->popScene();
 			return;
 		}
 

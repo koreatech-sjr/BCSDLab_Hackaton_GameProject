@@ -1,19 +1,19 @@
-#ifndef CLASS_INMOON_SCENE
-#define CLASS_INMOON_SCENE
+#ifndef CLASS_DAMHUN_SCENE
+#define CLASS_DAMHUN_SCENE
 
 #include "Common.h"
 #include "DialogueSprite.h"
 #include "Character.h"
 #include "DataSingleton.h"
 
-class ClassInMoonScene : public cocos2d::Layer
+class ClassDamhunScene : public cocos2d::Layer
 {
 	// [ 기본 ]
 	// ==============================================================================================================
 public:
 	static cocos2d::Scene* createScene() {
 		auto scene = Scene::create();
-		auto layer = ClassInMoonScene::create();
+		auto layer = ClassDamhunScene::create();
 		scene->addChild(layer);
 
 		return scene;
@@ -37,9 +37,9 @@ public:
 
 		// 터치 초기화
 		EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
-		listener->onTouchesBegan = CC_CALLBACK_2(ClassInMoonScene::onTouchesBegan, this);
-		listener->onTouchesMoved = CC_CALLBACK_2(ClassInMoonScene::onTouchesMoved, this);
-		listener->onTouchesEnded = CC_CALLBACK_2(ClassInMoonScene::onTouchesEnded, this);
+		listener->onTouchesBegan = CC_CALLBACK_2(ClassDamhunScene::onTouchesBegan, this);
+		listener->onTouchesMoved = CC_CALLBACK_2(ClassDamhunScene::onTouchesMoved, this);
+		listener->onTouchesEnded = CC_CALLBACK_2(ClassDamhunScene::onTouchesEnded, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 		m_bTouchStarted = false;
 		m_bTouchMoved = false;
@@ -76,7 +76,7 @@ public:
 
 		return true;
 	}
-	CREATE_FUNC(ClassInMoonScene);
+	CREATE_FUNC(ClassDamhunScene);
 
 	void update(float dt) {
 		static int cnt = 0;
@@ -87,25 +87,34 @@ public:
 				int t = pCharacter->getHour();
 				int m = pCharacter->getTime();
 				int w = pCharacter->getDay()%7;
-				if(((t == 15 && m>=50) || (t ==  16 && m==0)) && w == 6) {
+				if( 
+					((t ==  8 && m>=50) || (t ==  9 && m==0)) && w == 1 ||
+					((t ==  8 && m>=50) || (t ==  9 && m==0)) && w == 3 ||
+					((t == 11 && m>=50) || (t == 12 && m==0)) && w == 6 ||
+					((t == 13 && m>=50) || (t == 14 && m==0)) && w == 6 ||
+					((t == 13 && m>=50) || (t == 14 && m==0)) && w == 1 ||
+					((t == 13 && m>=50) || (t == 14 && m==0)) && w == 2 ) {
 					typeText("제시간에  수업시간에  도착했다.");
 					mode = 1;
 				}
-				else if(((t == 10 && m>=50) || (t ==  11 && m==0)) && w == 2) {
-					typeText("제시간에  수업시간에  도착했다.");
-					mode = 2;
+				else if( 
+					((t ==  9 && m >= 10) && w == 1) ||
+					((t ==  9 && m >= 10) && w == 3) ||
+					((t == 12 && m >= 10) && w == 6) ||
+					((t == 14 && m >= 10) && w == 6) ||
+					((t == 14 && m >= 10) && w == 1) ||
+					((t == 14 && m >= 10) && w == 2) ) {
+						typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
+						mode = 2;
 				}
-				else if(((t ==  16 && m >= 10) && w == 6)) {
-					typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
-					mode = 3;
-				}
-				else if(((t ==  11 && m >= 10) && w == 2)) {
-					typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
-					mode = 4;
-				}
-				else if ((t == 12 && m>00) && w == 2) {
-					typeText("너무  늦게  도착하였다.\n결석처리가  되었다.");
-						mode = 5;
+				else if (
+					((t == 10 && m>0) && w == 1) || 
+					((t == 10 && m>0) && w == 3) ||
+					((t == 15 && m>0) && w == 6) ||
+					((t == 15 && m>0) && w == 1) ||
+					((t == 15 && m>0) && w == 2)) {
+						typeText("너무  늦게  도착하였다.\n결석처리가  되었다.");
+						mode = 3;
 				}
 				else {
 					typeText("지금은  수업시간이  아니다.");
@@ -246,32 +255,17 @@ public:
 			typeEnd = false;
 			skip = false;
 			int t = pCharacter->getHour();
-			if(mode == 1) {
+			if(mode == 1 || mode == 2) {
 				progress = 1;
+				pCharacter->goTime(50);
 				pCharacter->goTime(50);
 			}
-			else if(mode == 2) {
-				progress = 1;
-				pCharacter->goTime(50);
-				pCharacter->goTime(50);
-			} 
 			else if(mode == 3) {
 				progress = 1;
 				pCharacter->goTime(50);
-			} else if(mode == 4) {
-				progress = 1;
-				pCharacter->goTime(50);
-				pCharacter->goTime(50);
-			} 
-			else if(mode == 5) {
-				progress = 1;
-				pCharacter->goTime(50);
-				pCharacter->goTime(50);
-			}else {
+			} else {
 				Director::getInstance()->popScene();
 			}
-			//else
-			//Director::getInstance()->popScene();
 			return;
 		}
 
@@ -289,12 +283,12 @@ public:
 		if (isInButton3(point) && progress == 1) {
 			skip = false;
 			progress = 4;
-			if( mode == 1 || mode == 3) {
-				pCharacter->setTime(10);
-			}
-			if( mode == 2 || mode == 4 || mode == 5) {
+			if( mode == 1 || mode == 2) {
 				pCharacter->setTime(10);
 				pCharacter->addHour(-1);
+			}
+			if( mode == 3) {
+				pCharacter->setTime(10);
 			}
 			return;
 		}
@@ -356,4 +350,4 @@ protected:
 
 
 };
-#endif CLASS_INMOON_SCENE
+#endif CLASS_DAMHUN_SCENE

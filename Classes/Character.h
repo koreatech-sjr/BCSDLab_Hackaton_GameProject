@@ -69,10 +69,10 @@ public:
 		while(m_hour != value) m_hour += 1;
 	}
 	void	goTime(int value) {
-		if(m_time < 50) m_time = 50;
+		if(m_time < value) m_time = value;
 		else {
 			m_hour += 1;
-			m_time = 50;
+			m_time = value;
 		}
 	}
 	int		getYear()					{ return m_year; }
