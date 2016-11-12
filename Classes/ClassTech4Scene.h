@@ -81,7 +81,7 @@ public:
 	void update(float dt) {
 		static int cnt = 0;
 		cnt++;
-		
+
 		if (progress == 0) {
 			if (cnt % 5 == 0) {
 				int t = pCharacter->getHour();
@@ -92,8 +92,8 @@ public:
 					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 1 ||
 					((t ==10 && m>=50) || (t == 11 && m==0)) && w == 0 ||
 					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 2) {
-					typeText("제시간에  수업시간에  도착했다.");
-					mode = 1;
+						typeText("제시간에  수업시간에  도착했다.");
+						mode = 1;
 				}
 				else if( 
 					((t ==  9 && m >= 10) && w == 6) ||
@@ -127,24 +127,26 @@ public:
 		if (progress == 2) {
 			if (cnt % 5 == 0) {
 				int random = rand() % 10;
-				pCharacter->addMoney(-2200);
 				if(random < 2) {
 					if(typeText("수업이  이해가  잘  된다.\n")) {
 						progress = 5;
 					}
-					pCharacter->addStress(-12);
+					pCharacter->addStress(+9);
+					pCharacter->addTiredness(+12);
 				}
 				else if(random < 8) {
 					if(typeText("뭐라고  하는지  모르겠다.\n")) {
 						progress = 5;
 					}
-					pCharacter->addStress(-10);
+					pCharacter->addStress(+15);
+					pCharacter->addTiredness(+10);
 				}
 				else {
 					if(typeText("죽고  싶다.\n")) {
 						progress = 5;
 					}
-					pCharacter->addStress(-6);
+					pCharacter->addStress(+18);
+					pCharacter->addTiredness(+6);
 				}
 			}
 		}
@@ -152,44 +154,43 @@ public:
 		if (progress == 3) {
 			if (cnt % 5 == 0) {
 				int random = rand() % 10;
-				pCharacter->addMoney(-3000);
 				if(random < 2) {
-					pCharacter->addStress(-18);
 					if(typeText("교수님이  전혀  신경을  쓰지 않는다.\n")) {
 						progress = 5;
 					}
+					pCharacter->addStress(+3);
+					pCharacter->addTiredness(+3);
 				}
 				else if(random < 8) {
-					pCharacter->addStress(-15);
 					if(typeText("딴짓을  들키지  않았다.\n")) {
 						progress = 5;
 					}
+					pCharacter->addStress(+5);
+					pCharacter->addTiredness(+5);
 				}
 				else {
-					pCharacter->addStress(-9);
 					if(typeText("교수님께  지적을  받았다.\n")) {
 						progress = 5;
 					}
+					pCharacter->addStress(+6);
+					pCharacter->addTiredness(+6);
 				}
 			}
 		}
 		if (progress == 4) {
 			int random = rand() % 10;
-				pCharacter->addMoney(-3000);
-				if(random < 8) {
-					pCharacter->addStress(-24);
-					if(typeText("성공적으로  도망갔다.\n")) {
-						progress = 5;
-					}
-					
+			if(random < 8) {
+				if(typeText("성공적으로  도망갔다.\n")) {
+					progress = 5;
 				}
-				else {
-					pCharacter->addStress(-20);
-					if(typeText("교수님께서  출석을  다시  부르셨다고  한다.\n결석처리가  되었다.")) {
-						progress = 5;
-					}
+				pCharacter->addStress(-5);
+			}
+			else {
+				if(typeText("교수님께서  출석을  다시  부르셨다고  한다.\n결석처리가  되었다.")) {
+					progress = 5;
 				}
-	
+				pCharacter->addStress(+10);
+			}
 		}
 	}
 

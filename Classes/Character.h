@@ -40,6 +40,7 @@ public:
 	void	setMaxStress(int value)		{ m_maxStress = value; }
 	int		getTiredness()				{ return m_tiredness; }
 	void	setTiredness(int value)		{ m_tiredness = value; }
+	void	addTiredness(int value)		{ m_tiredness += value; }
 	int		getMaxTiredness()			{ return m_maxTiredness; }
 	void	setMaxTiredness(int value)	{ m_maxTiredness = value; }
 	int		getMoney()					{ return m_money; }

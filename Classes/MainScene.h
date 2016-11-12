@@ -10,6 +10,7 @@
 #include "CafeteriaScene.h"
 #include "ClassTech4Scene.h"
 #include "ClassInMoonScene.h"
+#include "ClassDamhunScene.h"
 
 #define	NORMAL		0
 #define STATE		1
@@ -312,17 +313,18 @@ public:
 			}
 			mode = NORMAL;
 		}
-		/*
+		
 		// 담헌 강의실 입장 버튼
 		if(isButton51(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 5) {
-				auto scene = CafeteriaScene::createScene();
+				auto scene = ClassDamhunScene::createScene();
 				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
 				releaseClock();
 			}
 			mode = NORMAL;
 		}
+		/*
 		// 신한은행 입장 버튼
 		if(isButton61(point) && mode!=MOVE) {
 			removeAllPopUp();
