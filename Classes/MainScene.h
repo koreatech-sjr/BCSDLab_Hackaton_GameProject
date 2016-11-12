@@ -8,6 +8,7 @@
 #include "Character.h"
 #include "DataSingleton.h"
 #include "CafeteriaScene.h"
+#include "ClassTech4Scene.h"
 
 #define	NORMAL		0
 #define STATE		1
@@ -289,16 +290,18 @@ public:
 			}
 			mode = NORMAL;
 		}
+		*/
 		// 4공 강의실 입장 버튼
 		if(isButton31(point) && mode!=MOVE) {
 			removeAllPopUp();
 			if(location == 3) {
-				auto scene = CafeteriaScene::createScene();
+				auto scene = ClassTech4Scene::createScene();
 				Director::getInstance()->pushScene(TransitionFade::create(1.5, scene, Color3B(0, 0, 0)));
 				releaseClock();
 			}
 			mode = NORMAL;
 		}
+		/*
 		// 인경 강의실 입장 버튼
 		if(isButton41(point) && mode!=MOVE) {
 			removeAllPopUp();
@@ -362,8 +365,8 @@ public:
 		if(isMoveButton3(point) && mode == MOVE) {
 			location = 3;
 			moveMap("map3.png");
-			setButton4(600, 400, "강의실");
 			removeButton();
+			setButton4(600, 400, "강의실");
 			mode = NORMAL;
 		}
 		if(isMoveButton4(point) && mode == MOVE) {
@@ -480,15 +483,15 @@ protected:
 		return true;
 	}
 	bool isButton22(Point point) {
-		int xx = 600;
-		int yy = 400;
+		int xx = 1200;
+		int yy = 500;
 		if (point.x < xx || point.x > xx+150) return false;
 		if (point.y < yy || point.y > yy+150) return false;
 		return true;
 	}
 	bool isButton31(Point point) {
-		int xx = 1200;
-		int yy = 500;
+		int xx = 600;
+		int yy = 400;
 		if (point.x < xx || point.x > xx+150) return false;
 		if (point.y < yy || point.y > yy+150) return false;
 		return true;

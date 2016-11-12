@@ -1,19 +1,19 @@
-#ifndef CAFETERIA_SCENE
-#define CAFETERIA_SCENE
+#ifndef CLASS_TECH4_SCENE
+#define CLASS_TECH4_SCENE
 
 #include "Common.h"
 #include "DialogueSprite.h"
 #include "Character.h"
 #include "DataSingleton.h"
 
-class CafeteriaScene : public cocos2d::Layer
+class ClassTech4Scene : public cocos2d::Layer
 {
 	// [ 기본 ]
 	// ==============================================================================================================
 public:
 	static cocos2d::Scene* createScene() {
 		auto scene = Scene::create();
-		auto layer = CafeteriaScene::create();
+		auto layer = ClassTech4Scene::create();
 		scene->addChild(layer);
 
 		return scene;
@@ -29,7 +29,7 @@ public:
 
 
 		// 배경 이미지 출력
-		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map2a.png");
+		cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("map3a.png");
 		pBackgroundSprite->setPosition(cocos2d::CCPointZero);
 		pBackgroundSprite->setAnchorPoint(ccp((float)0, (float)0));
 		pBackgroundSprite->setPosition(ccp((float)0, (float)0));
@@ -37,9 +37,9 @@ public:
 
 		// 터치 초기화
 		EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
-		listener->onTouchesBegan = CC_CALLBACK_2(CafeteriaScene::onTouchesBegan, this);
-		listener->onTouchesMoved = CC_CALLBACK_2(CafeteriaScene::onTouchesMoved, this);
-		listener->onTouchesEnded = CC_CALLBACK_2(CafeteriaScene::onTouchesEnded, this);
+		listener->onTouchesBegan = CC_CALLBACK_2(ClassTech4Scene::onTouchesBegan, this);
+		listener->onTouchesMoved = CC_CALLBACK_2(ClassTech4Scene::onTouchesMoved, this);
+		listener->onTouchesEnded = CC_CALLBACK_2(ClassTech4Scene::onTouchesEnded, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 		m_bTouchStarted = false;
 		m_bTouchMoved = false;
@@ -76,7 +76,7 @@ public:
 
 		return true;
 	}
-	CREATE_FUNC(CafeteriaScene);
+	CREATE_FUNC(ClassTech4Scene);
 
 	void update(float dt) {
 		static int cnt = 0;
@@ -84,19 +84,40 @@ public:
 		
 		if (progress == 0) {
 			if (cnt % 5 == 0) {
-					int t= pCharacter->getHour();
-					if(t== 8 || t == 13 || t == 18) {
-						typeText("학식에  도착했다.\n메뉴를  선택하세요.");
-						mode = 0;
-					}
-					else {
-						typeText("학식이  열려있지  않다.");
-						mode = 1;
-					}
+				int t = pCharacter->getHour();
+				int m = pCharacter->getTime();
+				int w = pCharacter->getDay()%7;
+				if( 
+					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 6 ||
+					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 1 ||
+					((t ==10 && m>=50) || (t == 11 && m==0)) && w == 0 ||
+					((t == 8 && m>=50) || (t ==  9 && m==0)) && w == 2) {
+					typeText("제시간에  수업시간에  도착했다.");
+					mode = 1;
+				}
+				else if( 
+					((t ==  9 && m >= 10) && w == 6) ||
+					((t ==  9 && m >= 10) && w == 1) ||
+					((t == 11 && m >= 10) && w == 0) ||
+					((t ==  9 && m >= 10) && w == 2)) {
+						typeText("제시간에  도착하지  못하였다.\n지각처리가  되었다.");
+						mode = 2;
+				}
+				else if (
+					((t == 10 && m>50) && w == 6) || 
+					((t == 10 && m>50) && w == 1) ||
+					((t == 12 && m>50) && w == 0) ||
+					((t == 10 && m>50) && w == 2)) {
+						typeText("너무  늦게  도착하였다.\n결석처리가  되었다.");
+						mode = 3;
+				}
+				else {
+					typeText("지금은  수업시간이  아니다.");
+				}
 			}
 		}
 		if (progress == 1) {
-			std::string str = "▶1.한식 - 2,000원  스트레스 -10\n▶2.일품 - 3,000원  스트레스 -10\n▶3.양식 -3,000원  스트레스 -20";
+			std::string str = "▶수업듣기 :스트레스+15 피로도+10\n▶딴짓하기 :스트레스+5 피로도+5\n▶도망가기 :스트레스-5";
 			removeChild(pDialogueSprite->getTextLabel(), true);
 			pDialogueSprite->setText(str);
 			pDialogueSprite->setTextLabel();
@@ -108,26 +129,24 @@ public:
 				int random = rand() % 10;
 				pCharacter->addMoney(-2200);
 				if(random < 2) {
-					if(typeText("맛있게  먹었다.\n")) {
+					if(typeText("수업이  이해가  잘  된다.\n")) {
 						progress = 5;
 					}
 					pCharacter->addStress(-12);
 				}
 				else if(random < 8) {
-					if(typeText("배가  부르다.\n")) {
+					if(typeText("뭐라고  하는지  모르겠다.\n")) {
 						progress = 5;
 					}
 					pCharacter->addStress(-10);
 				}
 				else {
-					if(typeText("맛이  없었다.\n")) {
+					if(typeText("죽고  싶다.\n")) {
 						progress = 5;
 					}
 					pCharacter->addStress(-6);
 				}
 			}
-
-
 		}
 
 		if (progress == 3) {
@@ -136,19 +155,19 @@ public:
 				pCharacter->addMoney(-3000);
 				if(random < 2) {
 					pCharacter->addStress(-18);
-					if(typeText("맛있게  먹었다.\n")) {
+					if(typeText("교수님이  전혀  신경을  쓰지 않는다.\n")) {
 						progress = 5;
 					}
 				}
 				else if(random < 8) {
 					pCharacter->addStress(-15);
-					if(typeText("배가  부르다.\n")) {
+					if(typeText("딴짓을  들키지  않았다.\n")) {
 						progress = 5;
 					}
 				}
 				else {
 					pCharacter->addStress(-9);
-					if(typeText("맛이  없었다.\n")) {
+					if(typeText("교수님께  지적을  받았다.\n")) {
 						progress = 5;
 					}
 				}
@@ -157,25 +176,20 @@ public:
 		if (progress == 4) {
 			int random = rand() % 10;
 				pCharacter->addMoney(-3000);
-				if(random < 2) {
+				if(random < 8) {
 					pCharacter->addStress(-24);
-					if(typeText("맛있게  먹었다.\n")) {
+					if(typeText("성공적으로  도망갔다.\n")) {
 						progress = 5;
 					}
 					
 				}
-				else if(random < 8) {
-					pCharacter->addStress(-20);
-					if(typeText("배가  부르다.\n")) {
-						progress = 5;
-					}
-				}
 				else {
-					pCharacter->addStress(-12);
-					if(typeText("맛이  없었다.\n")) {
+					pCharacter->addStress(-20);
+					if(typeText("교수님께서  출석을  다시  부르셨다고  한다.\n결석처리가  되었다.")) {
 						progress = 5;
 					}
 				}
+	
 		}
 	}
 
@@ -236,10 +250,19 @@ public:
 			typeEnd = false;
 			skip = false;
 			int t = pCharacter->getHour();
-			if(mode == 0)
-				progress = 1; 
-			else
+			if(mode == 1) {
+				progress = 1;
+				pCharacter->goTime(50);
+				pCharacter->addHour(1);
+			}
+			else if(mode == 2) {
+				progress = 1;
+				pCharacter->goTime(50);
+			} else {
 				Director::getInstance()->popScene();
+			}
+			//else
+				//Director::getInstance()->popScene();
 			return;
 		}
 
@@ -257,12 +280,13 @@ public:
 		if (isInButton3(point) && progress == 1) {
 			skip = false;
 			progress = 4;
+			pCharacter->setTime(10);
+			pCharacter->addHour(-1);
 			return;
 		}
 		// end of 선택지 ---------------
 
 		if (typeEnd && progress == 5) {
-			pCharacter->goTime(50);
 			Director::getInstance()->popScene();
 			return;
 		}
@@ -318,4 +342,4 @@ protected:
 
 
 };
-#endif CAFETERIA_SCENE
+#endif CLASS_TECH4_SCENE
